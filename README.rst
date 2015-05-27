@@ -25,11 +25,13 @@ Install django-newsletter2go::
 
     pip install django-newsletter2go
 
-Then use it in a project::
+Use it in a project by adding this to your settings::
 
     INSTALLED_APPS += ('newsletter2go', )
     NEWSLETTER2GO_API_KEY = 'asdf'  # Your API key
     EMAIL_BACKEND='newsletter2go.backends.Newsletter2GoEmailBackend'
+
+Then you can use it as normal with the Django mail module: https://docs.djangoproject.com/en/1.8/topics/email/
 
 Features
 --------
