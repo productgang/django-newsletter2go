@@ -33,7 +33,9 @@ class Newsletter2GoEmailBackend(BaseEmailBackend):
                     'to': recipient,
                     'from': from_email,
                     'subject': email.subject,
-                    'text': email.body
+                    'text': email.body,
+                    'linktracking': int(getattr(settings, 'NEWSLETTER2GO_LINKTRACKING', True)),
+                    'opentracking': int(getattr(settings, 'NEWSLETTER2GO_OPENTRACKING', True)),
                 })
 
                 response_json = response.json()
