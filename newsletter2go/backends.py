@@ -28,15 +28,16 @@ class Newsletter2GoEmailBackend(BaseEmailBackend):
                           for addr in email.recipients()]
 
             for recipient in recipients:
-                response = requests.post(self.n2g_api_endpoint, {
+                payload = {
                     'key': settings.NEWSLETTER2GO_API_KEY,
                     'to': recipient,
                     'from': from_email,
                     'subject': email.subject,
-                    'text': email.body,
                     'linktracking': int(getattr(settings, 'NEWSLETTER2GO_LINKTRACKING', True)),
                     'opentracking': int(getattr(settings, 'NEWSLETTER2GO_OPENTRACKING', True)),
-                })
+                }
+                payload['html' if email.content_subtype == 'html' else 'text'] = email.body
+                response = requests.post(self.n2g_api_endpoint, payload)
 
                 response_json = response.json()
 
